@@ -87,6 +87,8 @@ class ReceptorActivity : AppCompatActivity() {
                 database.getReference("salas/$codigo/tokenReceptor").setValue(token)
 
                 tvEstadoConexion.text = "Estado: Conectado a sala $codigo 🟢"
+                // Limpiar alertas anteriores al conectar a nueva sala
+                prefs.edit().remove("ALERTAS").apply()
                 btnVerAlertas.isEnabled = true
                 Toast.makeText(this, "✅ Conectado a sala $codigo", Toast.LENGTH_SHORT).show()
             } else {

@@ -1,0 +1,14 @@
+# Archivos sensibles de Firebase
+google-services.json
+app/src/main/assets/*.json
+.firebaserc
+firebase.json
+
+# Archivos de functions
+functions/node_modules/
+functions/package-lock.json
+
+# Archivos locales
+*.local
+.idea/
+misc.xml

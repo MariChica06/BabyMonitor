@@ -32,24 +32,27 @@ class MonitorActivity : AppCompatActivity() {
     private val sonidoReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val amplitud = intent?.getIntExtra("amplitud", 0) ?: 0
+            val calibrado = intent?.getBooleanExtra("calibrado", false) ?: false
 
-            // Bajar suavemente el nivel si el nuevo es menor
-            nivelActual = if (amplitud > nivelActual) {
-                amplitud
-            } else {
-                (nivelActual * 0.6).toInt() // baja gradualmente
+            if (calibrado) {
+                tvEstado.text = "Estado: Calibrado y listo 🟢"
+                return
             }
 
-            // Restar ruido de fondo base (500)
-            val nivelReal = (nivelActual - 500).coerceAtLeast(0)
+            // Suavizar el movimiento de la barra
+            nivelActual = when {
+                amplitud > nivelActual -> amplitud  // sube rápido
+                else -> (nivelActual * 0.3).toInt() // baja rápido también
+            }
 
-            progressSonido.progress = nivelReal.coerceAtMost(10000)
-            tvNivelSonido.text = "Nivel: $nivelReal"
+            val nivelMostrar = nivelActual.coerceIn(0, 10000)
+            progressSonido.progress = nivelMostrar
+            tvNivelSonido.text = "Nivel: $nivelMostrar"
 
             when {
-                nivelReal > 7000 -> tvNivelSonido.setTextColor(
+                nivelMostrar > 6000 -> tvNivelSonido.setTextColor(
                     getColor(android.R.color.holo_red_dark))
-                nivelReal > 3000 -> tvNivelSonido.setTextColor(
+                nivelMostrar > 3000 -> tvNivelSonido.setTextColor(
                     getColor(android.R.color.holo_orange_dark))
                 else -> tvNivelSonido.setTextColor(
                     getColor(android.R.color.holo_green_dark))
@@ -123,15 +126,36 @@ class MonitorActivity : AppCompatActivity() {
     }
 
     private fun iniciarMonitoreo() {
-        tvEstado.text = "Estado: Monitoreando 🟢"
+        tvEstado.text = "Estado: Calibrando... 🟡"
         btnIniciar.isEnabled = false
         btnDetener.isEnabled = true
 
-        val intent = Intent(this, MonitorService::class.java)
-        intent.putExtra("CODIGO_SALA", codigoSala)
-        ContextCompat.startForegroundService(this, intent)
+        // Guardar la sala en Firebase para que el receptor pueda encontrarla
+        val database = com.google.firebase.database.FirebaseDatabase
+            .getInstance("https://babymonitor-9ed16-default-rtdb.firebaseio.com")
+        val ref = database.getReference("salas/$codigoSala")
 
-        Toast.makeText(this, "Monitoreo iniciado", Toast.LENGTH_SHORT).show()
+        val salaData = mapOf(
+            "activa" to true,
+            "creadaEn" to java.text.SimpleDateFormat(
+                "dd/MM/yyyy HH:mm:ss",
+                java.util.Locale.getDefault()
+            ).format(java.util.Date())
+        )
+
+        ref.setValue(salaData).addOnSuccessListener {
+            // Sala creada en Firebase, ahora iniciamos el servicio
+            val intent = Intent(this, MonitorService::class.java)
+            intent.putExtra("CODIGO_SALA", codigoSala)
+            ContextCompat.startForegroundService(this, intent)
+
+            Toast.makeText(this, "✅ Monitoreo iniciado", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "❌ Error al conectar con Firebase", Toast.LENGTH_SHORT).show()
+            tvEstado.text = "Estado: Error de conexión ❌"
+            btnIniciar.isEnabled = true
+            btnDetener.isEnabled = false
+        }
     }
 
     private fun detenerMonitoreo() {
