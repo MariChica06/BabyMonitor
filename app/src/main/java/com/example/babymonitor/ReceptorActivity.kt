@@ -26,6 +26,10 @@ class ReceptorActivity : AppCompatActivity() {
         tvEstadoConexion = findViewById(R.id.tvEstadoConexion)
         btnVerAlertas = findViewById(R.id.btnVerAlertas)
         tvToken = findViewById(R.id.tvToken)
+        val btnRetroceder = findViewById<android.widget.ImageButton>(R.id.btnRetroceder)
+        btnRetroceder.setOnClickListener {
+            finish()
+        }
 
         tvEstadoConexion.text = "Estado: Sin conectar"
         btnVerAlertas.isEnabled = false
@@ -68,19 +72,30 @@ class ReceptorActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("BabyMonitor", MODE_PRIVATE)
         val token = prefs.getString("FCM_TOKEN", "") ?: ""
 
-        prefs.edit().putString("CODIGO_SALA", codigo).apply()
-        prefs.edit().putString("ROL", "receptor").apply()
-
-        // Guardar el token del receptor en Firebase
-        // para que el monitor sepa a quién enviar alertas
+        // Verificar que el código existe en Firebase
         val database = com.google.firebase.database.FirebaseDatabase
             .getInstance("https://babymonitor-9ed16-default-rtdb.firebaseio.com/")
-        val ref = database.getReference("salas/$codigo/tokenReceptor")
-        ref.setValue(token)
+        val ref = database.getReference("salas/$codigo")
 
-        tvEstadoConexion.text = "Estado: Conectado a sala $codigo 🟢"
-        btnVerAlertas.isEnabled = true
+        ref.get().addOnSuccessListener { snapshot ->
+            if (snapshot.exists()) {
+                // El código existe, conectar
+                prefs.edit().putString("CODIGO_SALA", codigo).apply()
+                prefs.edit().putString("ROL", "receptor").apply()
 
-        Toast.makeText(this, "Conectado a sala $codigo", Toast.LENGTH_SHORT).show()
+                // Guardar token del receptor en Firebase
+                database.getReference("salas/$codigo/tokenReceptor").setValue(token)
+
+                tvEstadoConexion.text = "Estado: Conectado a sala $codigo 🟢"
+                btnVerAlertas.isEnabled = true
+                Toast.makeText(this, "✅ Conectado a sala $codigo", Toast.LENGTH_SHORT).show()
+            } else {
+                // El código NO existe
+                tvEstadoConexion.text = "Estado: Código inválido ❌"
+                Toast.makeText(this, "❌ Código de sala incorrecto", Toast.LENGTH_LONG).show()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Error de conexión con Firebase", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -80,9 +80,15 @@ class MonitorService : Service() {
                 val leidos = audioRecord?.read(buffer, 0, bufferSize) ?: 0
                 if (leidos > 0) {
                     val amplitud = buffer.take(leidos).maxOrNull()?.toInt() ?: 0
+
+                    // Enviar el nivel de sonido a MonitorActivity
+                    val intent = Intent("NIVEL_SONIDO")
+                    intent.putExtra("amplitud", amplitud)
+                    sendBroadcast(intent)
+
                     if (amplitud > UMBRAL_SONIDO) {
                         enviarAlerta(amplitud)
-                        Thread.sleep(5000) // espera 5 seg antes de otra alerta
+                        Thread.sleep(5000)
                     }
                 }
             }

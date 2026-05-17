@@ -7,6 +7,16 @@
     android:padding="32dp"
     android:background="#F8F9FA">
 
+    <ImageButton
+        android:id="@+id/btnRetroceder"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_revert"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_gravity="start"
+        android:contentDescription="Volver"
+        android:layout_marginBottom="8dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
