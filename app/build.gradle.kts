@@ -49,4 +49,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Para leer el service account y generar tokens
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
 }
