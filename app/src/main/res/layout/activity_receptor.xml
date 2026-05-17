@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#F8F9FA">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="👨‍👩‍👧 Modo Padre"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50"
+        android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingresa el código de sala:"
+        android:textSize="16sp"
+        android:textColor="#7F8C8D"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etCodigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Código de 6 dígitos"
+        android:inputType="number"
+        android:maxLength="6"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnConectar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="🔗 Conectar"
+        android:textSize="18sp"
+        android:backgroundTint="#3498DB"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/tvEstadoConexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado: Sin conectar"
+        android:textSize="16sp"
+        android:textColor="#7F8C8D"
+        android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/btnVerAlertas"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="🔔 Ver Alertas"
+        android:textSize="18sp"
+        android:backgroundTint="#9B59B6"/>
+
+    <TextView
+        android:id="@+id/tvToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obteniendo token..."
+        android:textSize="10sp"
+        android:textColor="#BDC3C7"
+        android:layout_marginTop="24dp"
+        android:maxLines="3"/>
+
+</LinearLayout>
