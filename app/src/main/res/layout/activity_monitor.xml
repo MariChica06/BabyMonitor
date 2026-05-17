@@ -8,47 +8,48 @@
     android:background="#F8F9FA">
 
     <TextView
-        android:id="@+id/tvLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="👶"
-        android:textSize="80sp"
-        android:layout_marginBottom="16dp"/>
-
-    <TextView
-        android:id="@+id/tvNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Baby Monitor"
-        android:textSize="32sp"
+        android:text="📡 Modo Monitor"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="#2C3E50"
         android:layout_marginBottom="8dp"/>
 
     <TextView
-        android:id="@+id/tvSubtitulo"
+        android:id="@+id/tvCodigo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Monitoreo inteligente para tu bebé"
-        android:textSize="14sp"
+        android:text="Código de sala: ------"
+        android:textSize="18sp"
+        android:textColor="#3498DB"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado: Detenido"
+        android:textSize="16sp"
         android:textColor="#7F8C8D"
         android:layout_marginBottom="48dp"/>
 
     <Button
-        android:id="@+id/btnModoMonitor"
+        android:id="@+id/btnIniciar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="📡  Modo Monitor"
+        android:text="▶ Iniciar Monitoreo"
         android:textSize="18sp"
-        android:backgroundTint="#3498DB"
+        android:backgroundTint="#2ECC71"
         android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/btnModoPadre"
+        android:id="@+id/btnDetener"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="👨‍👩‍👧  Modo Padre"
+        android:text="⏹ Detener Monitoreo"
         android:textSize="18sp"
-        android:backgroundTint="#2ECC71"/>
+        android:backgroundTint="#E74C3C"/>
 
 </LinearLayout>
