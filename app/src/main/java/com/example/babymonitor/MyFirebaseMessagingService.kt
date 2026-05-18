@@ -22,6 +22,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         mostrarNotificacion(titulo, cuerpo)
         guardarAlertaLocal(cuerpo)
+        incrementarNoLeidas()  // <- nuevo
     }
 
     private fun mostrarNotificacion(titulo: String, cuerpo: String) {
@@ -57,8 +58,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         prefs.edit().putStringSet("ALERTAS", alertas).apply()
     }
 
+    private fun incrementarNoLeidas() {
+        val prefs = getSharedPreferences("BabyMonitor", MODE_PRIVATE)
+        val actual = prefs.getInt("ALERTAS_NO_LEIDAS", 0)
+        prefs.edit().putInt("ALERTAS_NO_LEIDAS", actual + 1).apply()
+    }
+
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        // Aquí se podría guardar el token en Firebase si se necesita
     }
 }

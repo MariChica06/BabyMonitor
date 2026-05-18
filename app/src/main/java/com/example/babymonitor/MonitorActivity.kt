@@ -85,7 +85,7 @@ class MonitorActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         btnHome.setOnClickListener { finish() }
 
-        tvCodigo.text = "Código de sala: $codigoSala"
+        tvCodigo.text = "$codigoSala"
         tvEstado.text = "Estado: Detenido 🔴"
         btnDetener.isEnabled = false
         btnPause.isEnabled = false                    // ← deshabilitado al inicio

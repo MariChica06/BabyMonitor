@@ -69,9 +69,20 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:visibility="gone"/>
+
         </FrameLayout>
 
         <!-- Botones de control -->
+        <TextView
+            android:id="@+id/tvNivelSonido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Nivel: 0"
+            android:textColor="#444444"
+            android:textSize="15sp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,28 +125,19 @@
             android:id="@+id/tvEstado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:fontFamily="@font/atkinson_hyperlegible"
             android:text="Estado: Detenido 🔴"
             android:textColor="#444444"
             android:textSize="15sp" />
 
         <!-- Nivel de sonido -->
-        <TextView
-            android:id="@+id/tvNivelSonido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/atkinson_hyperlegible"
-            android:text="Nivel: 0"
-            android:textColor="#444444"
-            android:textSize="15sp"
-            android:layout_marginBottom="16dp"/>
 
         <!-- Código de sala -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/atkinson_hyperlegible"
             android:text="Código de sala:"
             android:textColor="#444444"

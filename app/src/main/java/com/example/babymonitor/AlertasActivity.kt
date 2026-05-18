@@ -20,13 +20,17 @@ class AlertasActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerAlertas)
         tvSinAlertas = findViewById(R.id.tvSinAlertas)
 
-        // Configurar RecyclerView
         adaptador = AlertasAdapter(listaAlertas)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adaptador
 
-        // Cargar alertas guardadas
+        resetearNoLeidas()  // <- nuevo
         cargarAlertas()
+    }
+
+    private fun resetearNoLeidas() {
+        getSharedPreferences("BabyMonitor", MODE_PRIVATE)
+            .edit().putInt("ALERTAS_NO_LEIDAS", 0).apply()
     }
 
     private fun cargarAlertas() {
