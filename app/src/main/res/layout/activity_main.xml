@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,7 +39,7 @@
             android:layout_marginBottom="40dp"
             android:contentDescription="Logo bebé durmiendo"
             android:scaleType="fitCenter"
-            android:src="@drawable/logo_bebe"
+            android:src="@drawable/logo_app_photoroom"
             tools:src="@drawable/logo_app_photoroom" />
 
         <!-- Pregunta -->
@@ -55,18 +56,19 @@
 
         <!-- Botón Monitor -->
         <Button
-            android:id="@+id/btnMonitor"
+            android:id="@+id/btnModoMonitor"
             android:layout_width="230dp"
             android:layout_height="56dp"
             android:layout_marginBottom="12dp"
             android:backgroundTint="#8FE07A"
-            android:cornerRadius="30dp"
             android:elevation="0dp"
             android:fontFamily="@font/atkinson_hyperlegible"
             android:stateListAnimator="@null"
             android:text="Monitor"
             android:textColor="#2C2C2C"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="30dp" />
 
         <!-- Texto "o" -->
         <TextView
@@ -80,16 +82,16 @@
 
         <!-- Botón Receptor -->
         <Button
-            android:id="@+id/btnReceptor"
+            android:id="@+id/btnModoPadre"
             android:layout_width="232dp"
             android:layout_height="56dp"
             android:backgroundTint="#7DD4C8"
-            android:cornerRadius="50dp"
             android:elevation="0dp"
             android:stateListAnimator="@null"
             android:text="Receptor"
             android:textColor="#2C2C2C"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:cornerRadius="50dp" />
 
     </LinearLayout>
 

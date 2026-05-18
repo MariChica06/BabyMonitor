@@ -25,7 +25,7 @@ class MonitorService : Service() {
         codigoSala = intent?.getStringExtra("CODIGO_SALA") ?: ""
         crearCanalNotificacion()
         startForeground(1, crearNotificacionPersistente())
-        soundClassifier = SoundClassifier()
+        soundClassifier = SoundClassifier(this)
         iniciarEscucha()
         return START_STICKY
     }
