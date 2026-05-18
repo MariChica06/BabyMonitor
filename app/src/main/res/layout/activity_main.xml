@@ -1,54 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="#F8F9FA">
+    android:background="#FFFFFF"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/tvLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="👶"
-        android:textSize="80sp"
-        android:layout_marginBottom="16dp"/>
-
-    <TextView
-        android:id="@+id/tvNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Baby Monitor"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="#2C3E50"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/tvSubtitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Monitoreo inteligente para tu bebé"
-        android:textSize="14sp"
-        android:textColor="#7F8C8D"
-        android:layout_marginBottom="48dp"/>
-
-    <Button
-        android:id="@+id/btnModoMonitor"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="📡  Modo Monitor"
-        android:textSize="18sp"
-        android:backgroundTint="#3498DB"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="60dp"
+        android:paddingBottom="40dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
 
-    <Button
-        android:id="@+id/btnModoPadre"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="👨‍👩‍👧  Modo Padre"
-        android:textSize="18sp"
-        android:backgroundTint="#2ECC71"/>
+        <!-- Texto principal -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:text="Monitorea el descanso\nde tu bebé"
+            android:textAlignment="center"
+            android:textColor="#2C2C2C"
+            android:textSize="22sp" />
 
-</LinearLayout>
+        <!-- Logo / imagen del bebé -->
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginBottom="40dp"
+            android:contentDescription="Logo bebé durmiendo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_bebe"
+            tools:src="@drawable/logo_app_photoroom" />
+
+        <!-- Pregunta -->
+        <TextView
+            android:id="@+id/tvPregunta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="¿Eres ...?"
+            android:textAlignment="center"
+            android:textColor="#2C2C2C"
+            android:textSize="18sp" />
+
+        <!-- Botón Monitor -->
+        <Button
+            android:id="@+id/btnMonitor"
+            android:layout_width="230dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="#8FE07A"
+            android:cornerRadius="30dp"
+            android:elevation="0dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:stateListAnimator="@null"
+            android:text="Monitor"
+            android:textColor="#2C2C2C"
+            android:textSize="18sp" />
+
+        <!-- Texto "o" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="o"
+            android:textColor="#888888"
+            android:textSize="20sp" />
+
+        <!-- Botón Receptor -->
+        <Button
+            android:id="@+id/btnReceptor"
+            android:layout_width="232dp"
+            android:layout_height="56dp"
+            android:backgroundTint="#7DD4C8"
+            android:cornerRadius="50dp"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="Receptor"
+            android:textColor="#2C2C2C"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</ScrollView>
