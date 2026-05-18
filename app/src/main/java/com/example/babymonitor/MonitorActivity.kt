@@ -8,8 +8,9 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
-import android.widget.ProgressBar
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,11 +23,10 @@ class MonitorActivity : AppCompatActivity() {
     private lateinit var tvCodigo: TextView
     private lateinit var btnIniciar: Button
     private lateinit var btnDetener: Button
-    private lateinit var progressSonido: ProgressBar
     private lateinit var tvNivelSonido: TextView
+    private lateinit var waveformView: WaveformView        // ← nuevo
+    private lateinit var recordingDot: View                // ← nuevo
     private var codigoSala: String = ""
-
-    // Receptor para recibir el nivel de sonido del servicio
     private var nivelActual = 0
 
     private val sonidoReceiver = object : BroadcastReceiver() {
@@ -39,15 +39,17 @@ class MonitorActivity : AppCompatActivity() {
                 return
             }
 
-            // Suavizar el movimiento de la barra
             nivelActual = when {
-                amplitud > nivelActual -> amplitud  // sube rápido
-                else -> (nivelActual * 0.3).toInt() // baja rápido también
+                amplitud > nivelActual -> amplitud
+                else -> (nivelActual * 0.3).toInt()
             }
 
             val nivelMostrar = nivelActual.coerceIn(0, 10000)
-            progressSonido.progress = nivelMostrar
             tvNivelSonido.text = "Nivel: $nivelMostrar"
+
+            // ← nuevo: pasar amplitud real al círculo de ondas
+            val ampNormalizada = nivelMostrar / 10000f
+            waveformView.addAmplitude(ampNormalizada)
 
             when {
                 nivelMostrar > 6000 -> tvNivelSonido.setTextColor(
@@ -70,15 +72,15 @@ class MonitorActivity : AppCompatActivity() {
         codigoSala = intent.getStringExtra("CODIGO_SALA") ?: ""
 
         tvEstado = findViewById(R.id.tvEstado)
-        tvCodigo = findViewById(R.id.tvCodigo)
+        tvCodigo = findViewById(R.id.tvCodigo)              // ← id corregido
         btnIniciar = findViewById(R.id.btnIniciar)
         btnDetener = findViewById(R.id.btnDetener)
-        progressSonido = findViewById(R.id.progressSonido)
         tvNivelSonido = findViewById(R.id.tvNivelSonido)
-        val btnRetroceder = findViewById<android.widget.ImageButton>(R.id.btnRetroceder)
-        btnRetroceder.setOnClickListener {
-            finish()
-        }
+        waveformView = findViewById(R.id.waveformView)      // ← nuevo
+        recordingDot = findViewById(R.id.recordingDot)      // ← nuevo
+
+        val btnRetroceder = findViewById<ImageButton>(R.id.btnHome)
+        btnRetroceder.setOnClickListener { finish() }
 
         tvCodigo.text = "Código de sala: $codigoSala"
         tvEstado.text = "Estado: Detenido 🔴"
@@ -97,7 +99,6 @@ class MonitorActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Registrar receptor de nivel de sonido
         val filter = IntentFilter("NIVEL_SONIDO")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(sonidoReceiver, filter, RECEIVER_NOT_EXPORTED)
@@ -129,8 +130,9 @@ class MonitorActivity : AppCompatActivity() {
         tvEstado.text = "Estado: Calibrando... 🟡"
         btnIniciar.isEnabled = false
         btnDetener.isEnabled = true
+        recordingDot.visibility = View.VISIBLE              // ← nuevo
+        waveformView.startWave()                            // ← nuevo
 
-        // Guardar la sala en Firebase para que el receptor pueda encontrarla
         val database = com.google.firebase.database.FirebaseDatabase
             .getInstance("https://babymonitor-9ed16-default-rtdb.firebaseio.com")
         val ref = database.getReference("salas/$codigoSala")
@@ -144,17 +146,17 @@ class MonitorActivity : AppCompatActivity() {
         )
 
         ref.setValue(salaData).addOnSuccessListener {
-            // Sala creada en Firebase, ahora iniciamos el servicio
             val intent = Intent(this, MonitorService::class.java)
             intent.putExtra("CODIGO_SALA", codigoSala)
             ContextCompat.startForegroundService(this, intent)
-
             Toast.makeText(this, "✅ Monitoreo iniciado", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
             Toast.makeText(this, "❌ Error al conectar con Firebase", Toast.LENGTH_SHORT).show()
             tvEstado.text = "Estado: Error de conexión ❌"
             btnIniciar.isEnabled = true
             btnDetener.isEnabled = false
+            recordingDot.visibility = View.GONE             // ← nuevo
+            waveformView.stopWave()                         // ← nuevo
         }
     }
 
@@ -162,8 +164,9 @@ class MonitorActivity : AppCompatActivity() {
         tvEstado.text = "Estado: Detenido 🔴"
         btnIniciar.isEnabled = true
         btnDetener.isEnabled = false
-        progressSonido.progress = 0
         tvNivelSonido.text = "Nivel: 0"
+        recordingDot.visibility = View.GONE                 // ← nuevo
+        waveformView.stopWave()                             // ← nuevo
 
         stopService(Intent(this, MonitorService::class.java))
         Toast.makeText(this, "Monitoreo detenido", Toast.LENGTH_SHORT).show()
