@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- ===== ENCABEZADO ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#C8EFB0"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_person"
+            android:contentDescription="Icono usuario"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Eres Monitor"
+            android:textColor="#2E7D32"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- ===== CONTENIDO CENTRAL HORIZONTAL ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <!-- Columna izquierda: círculo waveform -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="180dp"
+                android:layout_height="180dp">
+
+                <View
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/circle_background"/>
+
+                <com.example.babymonitor.WaveformView
+                    android:id="@+id/waveformView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"/>
+
+                <View
+                    android:id="@+id/recordingDot"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/dot_recording"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvNivelSonido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:text="Nivel: 0"
+                android:textColor="#444444"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <!-- Divisor vertical -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#E0E0E0" />
+
+        <!-- Columna derecha: botones + estado + código -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Botones de control -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <!-- Play -->
+                <ImageButton
+                    android:id="@+id/btnIniciar"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:src="@drawable/ic_play"
+                    android:background="@drawable/btn_circle_outline"
+                    android:contentDescription="Reproducir"
+                    android:layout_marginEnd="12dp"
+                    app:tint="@color/btn_icon_tint"/>
+
+                <!-- Pausar -->
+                <ImageButton
+                    android:id="@+id/btnPause"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:src="@drawable/ic_pause"
+                    android:background="@drawable/btn_circle_outline"
+                    android:contentDescription="Pausar"
+                    android:layout_marginEnd="12dp"
+                    app:tint="@color/btn_icon_tint"/>
+
+                <!-- Detener -->
+                <ImageButton
+                    android:id="@+id/btnDetener"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/btn_circle_filled"
+                    android:contentDescription="Detener"
+                    android:src="@drawable/ic_stop"
+                    app:tint="@color/btn_icon_tint_white" />
+
+            </LinearLayout>
+
+            <!-- Estado -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:text="Estado:"
+                android:textColor="#444444"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:text="Detenido"
+                android:textColor="#E74C3C"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <!-- Código de sala -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:text="Código de sala:"
+                android:textColor="#444444"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:letterSpacing="0.15"
+                android:textColor="#2C2C2C"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ===== FOOTER / MENÚ ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/footer_background"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="63dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Inicio"
+                android:src="@drawable/ic_home" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

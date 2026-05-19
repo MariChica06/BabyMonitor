@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- ===== ENCABEZADO ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#89d8cd"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_person_receptor"
+            android:contentDescription="Icono usuario"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Eres Receptor"
+            android:textColor="#1a6b63"
+            android:textSize="19sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- ===== CONTENIDO CENTRAL HORIZONTAL ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <!-- Columna izquierda: texto + campo código -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:gravity="center"
+                android:text="Ingresa el código\nde la sala:"
+                android:textAlignment="center"
+                android:textColor="#2C2C2C"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etCodigo"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:hint="000000"
+                android:inputType="textCapCharacters"
+                android:maxLength="6"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:letterSpacing="0.2"/>
+
+        </LinearLayout>
+
+        <!-- Divisor vertical -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#E0E0E0" />
+
+        <!-- Columna derecha: botones + estado -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Botón Conectar -->
+            <Button
+                android:id="@+id/btnConectar"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:text="Conectar"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:textSize="16sp"
+                android:textColor="#1a6b63"
+                android:backgroundTint="#C8F5F1"
+                android:elevation="0dp"
+                android:stateListAnimator="@null"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Botón Desconectar -->
+            <TextView
+                android:id="@+id/btnDesconectar"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:text="Desconectar"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:textSize="16sp"
+                android:background="@drawable/btn_desconectar_rojo"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"/>
+
+            <!-- Estado label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:text="Estado:"
+                android:textColor="#444444"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Estado valor -->
+            <TextView
+                android:id="@+id/tvEstadoConexion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:text="No conectado"
+                android:textColor="#C0392B"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <!-- Token oculto -->
+            <TextView
+                android:id="@+id/tvToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ===== FOOTER / MENÚ ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/footer_background_receptor"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <!-- Home -->
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_home_receptor"
+                android:background="@android:color/transparent"
+                android:contentDescription="Inicio"
+                android:layout_marginEnd="16dp"/>
+
+            <!-- Separador -->
+            <View
+                android:layout_width="2dp"
+                android:layout_height="28dp"
+                android:background="#1a6b63"
+                android:layout_marginEnd="16dp"/>
+
+            <!-- Alertas con badge -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/btnVerAlertas"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_notifications"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Alertas"/>
+
+                <TextView
+                    android:id="@+id/tvBadge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/badge_background"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
