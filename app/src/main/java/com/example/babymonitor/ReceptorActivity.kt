@@ -14,7 +14,7 @@ class ReceptorActivity : AppCompatActivity() {
 
     private lateinit var etCodigo: EditText
     private lateinit var btnConectar: Button
-    private lateinit var btnDesconectar: Button
+    private lateinit var btnDesconectar: TextView
     private lateinit var tvEstadoConexion: TextView
     private lateinit var btnVerAlertas: ImageButton
     private lateinit var tvToken: TextView
@@ -154,7 +154,7 @@ class ReceptorActivity : AppCompatActivity() {
         btnConectar.visibility = android.view.View.GONE
         btnDesconectar.visibility = android.view.View.VISIBLE
         btnVerAlertas.isEnabled = true
-        tvEstadoConexion.text = "Conectado a sala $codigo 🟢"
+        tvEstadoConexion.text = "Conectado a sala $codigo "
         tvEstadoConexion.setTextColor(getColor(android.R.color.holo_green_dark)) // ← agregar
     }
 
