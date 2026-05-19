@@ -23,6 +23,8 @@ class ReceptorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receptor)
+        window.statusBarColor = android.graphics.Color.parseColor("#89d8cd")
+        window.decorView.systemUiVisibility = android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         etCodigo = findViewById(R.id.etCodigo)
         btnConectar = findViewById(R.id.btnConectar)
@@ -111,6 +113,7 @@ class ReceptorActivity : AppCompatActivity() {
                 prefs.edit()
                     .putString("CODIGO_SALA", codigo)
                     .putString("ROL", "receptor")
+                    .putBoolean("RECEPTOR_CONECTADO", true)
                     .apply()
 
                 database.getReference("salas/$codigo/tokenReceptor").setValue(token)
@@ -142,6 +145,7 @@ class ReceptorActivity : AppCompatActivity() {
         prefs.edit()
             .remove("CODIGO_SALA")
             .remove("ROL")
+            .putBoolean("RECEPTOR_CONECTADO", false)
             .apply()
 
         Toast.makeText(this, "Desconectado", Toast.LENGTH_SHORT).show()

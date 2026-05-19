@@ -21,6 +21,8 @@ class AlertasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alertas)
+        window.statusBarColor = android.graphics.Color.parseColor("#89d8cd")
+        window.decorView.systemUiVisibility = android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         recyclerView = findViewById(R.id.recyclerAlertas)
         tvSinAlertas = findViewById(R.id.tvSinAlertas)
