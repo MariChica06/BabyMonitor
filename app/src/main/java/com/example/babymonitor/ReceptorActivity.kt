@@ -115,12 +115,12 @@ class ReceptorActivity : AppCompatActivity() {
 
                 database.getReference("salas/$codigo/tokenReceptor").setValue(token)
 
-                Toast.makeText(this, "✅ Conectado a sala $codigo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Conectado a sala $codigo", Toast.LENGTH_SHORT).show()
                 setEstadoConectado(codigo)
                 actualizarBadge()
             } else {
-                tvEstadoConexion.text = "Estado: Código inválido ❌"
-                Toast.makeText(this, "❌ Código de sala incorrecto", Toast.LENGTH_LONG).show()
+                tvEstadoConexion.text = "Código inválido"
+                Toast.makeText(this, "Código de sala incorrecto", Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener {
             Toast.makeText(this, "Error de conexión con Firebase", Toast.LENGTH_SHORT).show()
@@ -143,7 +143,7 @@ class ReceptorActivity : AppCompatActivity() {
             .remove("ROL")
             .apply()
 
-        Toast.makeText(this, "🔌 Desconectado", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Desconectado", Toast.LENGTH_SHORT).show()
         setEstadoDesconectado()
     }
 
@@ -153,7 +153,7 @@ class ReceptorActivity : AppCompatActivity() {
         btnConectar.visibility = android.view.View.GONE
         btnDesconectar.visibility = android.view.View.VISIBLE
         btnVerAlertas.isEnabled = true
-        tvEstadoConexion.text = "Estado: Conectado a sala $codigo 🟢"
+        tvEstadoConexion.text = "Conectado a sala $codigo"
     }
 
     private fun setEstadoDesconectado() {
@@ -162,6 +162,6 @@ class ReceptorActivity : AppCompatActivity() {
         btnConectar.visibility = android.view.View.VISIBLE
         btnDesconectar.visibility = android.view.View.GONE
         btnVerAlertas.isEnabled = false
-        tvEstadoConexion.text = "Estado: Sin conectar"
+        tvEstadoConexion.text = "Sin conectar"
     }
 }
