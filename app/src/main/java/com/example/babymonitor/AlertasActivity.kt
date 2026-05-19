@@ -1,7 +1,7 @@
 package com.example.babymonitor
 
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,7 @@ class AlertasActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var tvSinAlertas: TextView
     private lateinit var tvTitulo: TextView
-    private lateinit var btnLimpiar: Button
+    private lateinit var btnLimpiar: ImageButton      // ← cambiado de Button a ImageButton
     private lateinit var adaptador: AlertasAdapter
     private val listaAlertas = mutableListOf<AlertaItem>()
     private var codigoSala = ""
@@ -27,8 +27,8 @@ class AlertasActivity : AppCompatActivity() {
         tvTitulo = findViewById(R.id.tvTitulo)
         btnLimpiar = findViewById(R.id.btnLimpiar)
 
-        val btnRetroceder = findViewById<android.widget.ImageButton>(R.id.btnRetroceder)
-        btnRetroceder.setOnClickListener { finish() }
+        val btnHome = findViewById<ImageButton>(R.id.btnHome)  // ← cambiado de btnRetroceder
+        btnHome.setOnClickListener { finish() }
 
         adaptador = AlertasAdapter(listaAlertas)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -112,9 +112,9 @@ class AlertasActivity : AppCompatActivity() {
     private fun actualizarTitulo() {
         val cantidad = listaAlertas.size
         tvTitulo.text = if (cantidad > 0) {
-            "🔔 Historial de Alertas ($cantidad)"
+            "Historial de Alertas ($cantidad)"
         } else {
-            "🔔 Historial de Alertas"
+            "Historial de Alertas"
         }
     }
 }

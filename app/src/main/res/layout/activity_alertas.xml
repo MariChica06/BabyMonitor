@@ -3,66 +3,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F8F9FA">
+    android:background="#FFFFFF">
 
-    <!-- Header -->
+    <!-- ===== ENCABEZADO ===== -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp">
+        android:background="#89d8cd"
+        android:gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
-        <ImageButton
-            android:id="@+id/btnRetroceder"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_revert"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Volver"
-            android:layout_marginEnd="8dp"/>
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_notifications"
+            android:contentDescription="Alertas"
+            android:layout_marginEnd="10dp"/>
 
         <TextView
             android:id="@+id/tvTitulo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="🔔 Historial de Alertas"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#2C3E50"/>
-
-        <Button
-            android:id="@+id/btnLimpiar"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="🗑 Limpiar"
-            android:textSize="12sp"
-            android:backgroundTint="#E74C3C"
-            android:textColor="#FFFFFF"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Historial de Alertas"
+            android:textColor="#1a6b63"
+            android:textSize="21sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- ===== CONTENIDO CENTRAL ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Sin alertas -->
+        <TextView
+            android:id="@+id/tvSinAlertas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="No hay alertas registradas"
+            android:textSize="16sp"
+            android:textColor="#7F8C8D"
+            android:gravity="center"
+            android:layout_marginTop="64dp"
+            android:visibility="gone"/>
+
+        <!-- Lista de alertas -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAlertas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
-    <!-- Sin alertas -->
-    <TextView
-        android:id="@+id/tvSinAlertas"
+    <!-- ===== FOOTER / MENÚ ===== -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No hay alertas registradas"
-        android:textSize="16sp"
-        android:textColor="#7F8C8D"
         android:gravity="center"
-        android:layout_marginTop="64dp"/>
+        android:paddingBottom="24dp">
 
-    <!-- Lista -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAlertas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/footer_background_receptor"
+            android:gravity="center"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <!-- Home -->
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_home_receptor"
+                android:background="@android:color/transparent"
+                android:contentDescription="Inicio"
+                android:layout_marginEnd="16dp"/>
+
+            <!-- Separador -->
+            <View
+                android:layout_width="2dp"
+                android:layout_height="28dp"
+                android:background="#1a6b63"
+                android:layout_marginEnd="16dp"/>
+
+            <!-- Limpiar -->
+            <ImageButton
+                android:id="@+id/btnLimpiar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_delete"
+                android:background="@android:color/transparent"
+                android:contentDescription="Limpiar alertas"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
