@@ -120,6 +120,7 @@ class ReceptorActivity : AppCompatActivity() {
                 actualizarBadge()
             } else {
                 tvEstadoConexion.text = "Código inválido"
+                tvEstadoConexion.setTextColor(getColor(android.R.color.holo_red_dark)) // ← agregar
                 Toast.makeText(this, "Código de sala incorrecto", Toast.LENGTH_LONG).show()
             }
         }.addOnFailureListener {
@@ -153,7 +154,8 @@ class ReceptorActivity : AppCompatActivity() {
         btnConectar.visibility = android.view.View.GONE
         btnDesconectar.visibility = android.view.View.VISIBLE
         btnVerAlertas.isEnabled = true
-        tvEstadoConexion.text = "Conectado a sala $codigo"
+        tvEstadoConexion.text = "Conectado a sala $codigo 🟢"
+        tvEstadoConexion.setTextColor(getColor(android.R.color.holo_green_dark)) // ← agregar
     }
 
     private fun setEstadoDesconectado() {
@@ -162,6 +164,7 @@ class ReceptorActivity : AppCompatActivity() {
         btnConectar.visibility = android.view.View.VISIBLE
         btnDesconectar.visibility = android.view.View.GONE
         btnVerAlertas.isEnabled = false
-        tvEstadoConexion.text = "Sin conectar"
+        tvEstadoConexion.text = "No conectado"
+        tvEstadoConexion.setTextColor(getColor(android.R.color.holo_red_dark)) // ← agregar
     }
 }

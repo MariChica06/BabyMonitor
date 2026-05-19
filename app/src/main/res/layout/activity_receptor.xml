@@ -91,8 +91,8 @@
             android:text="Desconectar"
             android:fontFamily="@font/atkinson_hyperlegible"
             android:textSize="16sp"
+            android:background="@drawable/btn_desconectar_rojo"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#89d8cd"
             android:elevation="0dp"
             android:stateListAnimator="@null"
             android:layout_marginBottom="24dp"
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/atkinson_hyperlegible"
             android:text="No conectado"
-            android:textColor="#89d8cd"
+            android:textColor="#C0392B"
             android:textSize="15sp"
             android:textStyle="bold"/>
 
