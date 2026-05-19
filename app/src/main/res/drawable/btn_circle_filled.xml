@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="#2E7D32"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Deshabilitado: gris -->
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="#E0E0E0"/>
+        </shape>
+    </item>
+
+    <!-- Presionado -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="#B71C1C"/>
+        </shape>
+    </item>
+
+    <!-- Normal -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#E53935"/>
+        </shape>
+    </item>
+
+</selector>

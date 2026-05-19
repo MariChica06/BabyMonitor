@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="#FFFFFF"/>
-    <stroke android:width="2dp" android:color="#2E7D32"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Deshabilitado: gris -->
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="#E0E0E0"/>
+            <stroke android:width="2dp" android:color="#BDBDBD"/>
+        </shape>
+    </item>
+
+    <!-- Presionado -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="#A5D6A7"/>
+            <stroke android:width="2dp" android:color="#2E7D32"/>
+        </shape>
+    </item>
+
+    <!-- Normal -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF"/>
+            <stroke android:width="2dp" android:color="#2E7D32"/>
+        </shape>
+    </item>
+
+</selector>
