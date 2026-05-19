@@ -82,7 +82,7 @@
             android:fontFamily="@font/atkinson_hyperlegible"
             android:text="Nivel: 0"
             android:textColor="#444444"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <!-- Botones de control -->
         <LinearLayout
@@ -127,15 +127,27 @@
         </LinearLayout>
 
         <!-- Estado del monitoreo -->
+        <!-- Estado del monitoreo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Estado:"
+            android:textColor="#444444"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/tvEstado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="4dp"
             android:fontFamily="@font/atkinson_hyperlegible"
-            android:text="Estado: Detenido 🔴"
-            android:textColor="#444444"
-            android:textSize="15sp" />
+            android:text="Detenido"
+            android:textColor="#E74C3C"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <!-- Código de sala -->
         <TextView

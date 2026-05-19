@@ -71,7 +71,7 @@ class MonitorService : Service() {
             val buffer = ShortArray(SAMPLE_RATE) // 1 segundo de audio
             var ultimaAlerta = 0L
 
-            Log.d("BABY_MONITOR", "🎙️ Iniciando escucha con FFT...")
+            Log.d("BABY_MONITOR", "Iniciando escucha con FFT...")
             Thread.sleep(1000)
 
             // Avisar que está calibrado
@@ -80,7 +80,7 @@ class MonitorService : Service() {
             intentBase.putExtra("calibrado", true)
             sendBroadcast(intentBase)
 
-            Log.d("BABY_MONITOR", "✅ Listo para escuchar")
+            Log.d("BABY_MONITOR", "Listo para escuchar")
 
             while (estaMonitoreando) {
                 val leidos = audioRecord?.read(buffer, 0, buffer.size) ?: 0
@@ -152,11 +152,11 @@ class MonitorService : Service() {
                 NotificationSender.enviarNotificacion(
                     context = this,
                     tokenReceptor = tokenReceptor,
-                    titulo = "👶 Baby Monitor — Alerta",
+                    titulo = "Baby Monitor — Alerta",
                     cuerpo = tipo
                 )
             } else {
-                Log.e("BABY_MONITOR", "❌ No hay token receptor")
+                Log.e("BABY_MONITOR", "No hay token receptor")
             }
         }
     }

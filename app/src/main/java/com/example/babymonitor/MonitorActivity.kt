@@ -36,7 +36,8 @@ class MonitorActivity : AppCompatActivity() {
             val calibrado = intent?.getBooleanExtra("calibrado", false) ?: false
 
             if (calibrado) {
-                tvEstado.text = "Estado: Calibrado y listo 🟢"
+                tvEstado.text = "Calibrado y listo"
+                tvEstado.setTextColor(getColor(android.R.color.holo_green_dark))
                 return
             }
 
@@ -109,12 +110,18 @@ class MonitorActivity : AppCompatActivity() {
         btnPause.setOnClickListener {
             if (!pausado) {
                 pausado = true
-                tvEstado.text = "Estado: Pausado ⏸️"
+                tvEstado.text = "Pausado"
+                tvEstado.setTextColor(getColor(android.R.color.holo_orange_dark))
                 waveformView.stopWave()
+                recordingDot.backgroundTintList = android.content.res.ColorStateList.valueOf(
+                    getColor(android.R.color.holo_orange_dark)) // ← naranja al pausar
             } else {
                 pausado = false
-                tvEstado.text = "Estado: Monitoreando 🟢"
+                tvEstado.text = "Monitoreando"
+                tvEstado.setTextColor(getColor(android.R.color.holo_green_dark))
                 waveformView.startWave()
+                recordingDot.backgroundTintList = android.content.res.ColorStateList.valueOf(
+                    getColor(android.R.color.holo_green_dark)) // ← verde al reanudar
             }
         }
 
@@ -154,7 +161,8 @@ class MonitorActivity : AppCompatActivity() {
 
     private fun iniciarMonitoreo() {
         pausado = false
-        tvEstado.text = "Estado: Calibrando... 🟡"
+        tvEstado.text = "Calibrando..."
+        tvEstado.setTextColor(getColor(android.R.color.holo_orange_dark))
         btnIniciar.isEnabled = false
         btnDetener.isEnabled = true
         btnPause.isEnabled = true
@@ -182,11 +190,12 @@ class MonitorActivity : AppCompatActivity() {
             getSharedPreferences("BabyMonitor", MODE_PRIVATE)
                 .edit().putBoolean("MONITOREANDO", true).apply()
 
-            Toast.makeText(this, "✅ Monitoreo iniciado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Monitoreo iniciado", Toast.LENGTH_SHORT).show()
             setEstadoMonitoreando()
         }.addOnFailureListener {
-            Toast.makeText(this, "❌ Error al conectar con Firebase", Toast.LENGTH_SHORT).show()
-            tvEstado.text = "Estado: Error de conexión ❌"
+            Toast.makeText(this, "Error al conectar con Firebase", Toast.LENGTH_SHORT).show()
+            tvEstado.text = "Error de conexión"
+            tvEstado.setTextColor(getColor(android.R.color.holo_red_dark))
             btnIniciar.isEnabled = true
             btnDetener.isEnabled = false
             btnPause.isEnabled = false
@@ -208,16 +217,21 @@ class MonitorActivity : AppCompatActivity() {
     }
 
     private fun setEstadoMonitoreando() {
-        tvEstado.text = "Estado: Monitoreando 🟢"
+        tvEstado.text = "Monitoreando"
+        tvEstado.setTextColor(getColor(android.R.color.holo_green_dark))
         btnIniciar.isEnabled = false
         btnDetener.isEnabled = true
         btnPause.isEnabled = true
         recordingDot.visibility = View.VISIBLE
+        recordingDot.backgroundTintList = android.content.res.ColorStateList.valueOf(
+            getColor(android.R.color.holo_green_dark)) // ← agregar esto
         waveformView.startWave()
+        tvNivelSonido.text = "Nivel: 0"
     }
 
     private fun setEstadoDetenido() {
-        tvEstado.text = "Estado: Detenido 🔴"
+        tvEstado.text = "Detenido"
+        tvEstado.setTextColor(getColor(android.R.color.holo_red_dark))
         btnIniciar.isEnabled = true
         btnDetener.isEnabled = false
         btnPause.isEnabled = false

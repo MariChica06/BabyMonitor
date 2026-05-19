@@ -84,7 +84,7 @@
             android:layout_marginBottom="12dp"/>
 
         <!-- Botón Desconectar -->
-        <Button
+        <TextView
             android:id="@+id/btnDesconectar"
             android:layout_width="200dp"
             android:layout_height="52dp"
@@ -93,8 +93,7 @@
             android:textSize="16sp"
             android:background="@drawable/btn_desconectar_rojo"
             android:textColor="#FFFFFF"
-            android:elevation="0dp"
-            android:stateListAnimator="@null"
+            android:gravity="center"
             android:layout_marginBottom="24dp"
             android:visibility="gone"/>
 

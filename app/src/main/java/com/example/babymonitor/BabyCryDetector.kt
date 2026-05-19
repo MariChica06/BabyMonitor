@@ -44,7 +44,7 @@ class BabyCryDetector(private val context: Context) {
                         val perfil = calcularPerfilEspectral(shortArray)
                         perfilesList.add(perfil)
                         muestrasCalculadas++
-                        Log.d(TAG, "✅ Perfil calculado para: $archivo")
+                        Log.d(TAG, "Perfil calculado para: $archivo")
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "Error con $archivo: ${e.message}")
@@ -63,7 +63,7 @@ class BabyCryDetector(private val context: Context) {
                 for (i in 0 until size) {
                     perfilEspectral!![i] /= perfilesList.size
                 }
-                Log.d(TAG, "✅ Perfil espectral promedio calculado con $muestrasCalculadas muestras")
+                Log.d(TAG, "Perfil espectral promedio calculado con $muestrasCalculadas muestras")
             }
 
         } catch (e: Exception) {
