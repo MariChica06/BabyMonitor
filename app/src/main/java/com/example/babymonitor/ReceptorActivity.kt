@@ -34,7 +34,6 @@ class ReceptorActivity : AppCompatActivity() {
         val btnRetroceder = findViewById<android.widget.ImageButton>(R.id.btnRetroceder)
         btnRetroceder.setOnClickListener { finish() }
 
-        // Restaurar estado persistido
         val prefs = getSharedPreferences("BabyMonitor", MODE_PRIVATE)
         val codigoGuardado = prefs.getString("CODIGO_SALA", "") ?: ""
         val rol = prefs.getString("ROL", "") ?: ""
@@ -45,7 +44,6 @@ class ReceptorActivity : AppCompatActivity() {
             setEstadoDesconectado()
         }
 
-        // Obtener el token FCM
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val token = task.result
@@ -83,7 +81,14 @@ class ReceptorActivity : AppCompatActivity() {
 
     private fun actualizarBadge() {
         val prefs = getSharedPreferences("BabyMonitor", MODE_PRIVATE)
-        val noLeidas = prefs.getInt("ALERTAS_NO_LEIDAS", 0)
+        val codigo = prefs.getString("CODIGO_SALA", "") ?: ""
+
+        if (codigo.isEmpty()) {
+            tvBadge.visibility = android.view.View.GONE
+            return
+        }
+
+        val noLeidas = prefs.getInt("ALERTAS_NO_LEIDAS_$codigo", 0)
         if (noLeidas > 0) {
             tvBadge.visibility = android.view.View.VISIBLE
             tvBadge.text = if (noLeidas > 99) "99+" else noLeidas.toString()
@@ -98,20 +103,20 @@ class ReceptorActivity : AppCompatActivity() {
 
         val database = com.google.firebase.database.FirebaseDatabase
             .getInstance("https://babymonitor-9ed16-default-rtdb.firebaseio.com/")
-        val ref = database.getReference("salas/$codigo")
 
-        ref.get().addOnSuccessListener { snapshot ->
+        database.getReference("salas/$codigo").get().addOnSuccessListener { snapshot ->
             if (snapshot.exists()) {
+                // No se borran alertas al conectar, se conservan por código
                 prefs.edit()
                     .putString("CODIGO_SALA", codigo)
                     .putString("ROL", "receptor")
-                    .remove("ALERTAS")
                     .apply()
 
                 database.getReference("salas/$codigo/tokenReceptor").setValue(token)
 
                 Toast.makeText(this, "✅ Conectado a sala $codigo", Toast.LENGTH_SHORT).show()
                 setEstadoConectado(codigo)
+                actualizarBadge()
             } else {
                 tvEstadoConexion.text = "Estado: Código inválido ❌"
                 Toast.makeText(this, "❌ Código de sala incorrecto", Toast.LENGTH_LONG).show()
@@ -131,6 +136,7 @@ class ReceptorActivity : AppCompatActivity() {
             database.getReference("salas/$codigo/tokenReceptor").removeValue()
         }
 
+        // Solo se elimina la sesión, las alertas del código se conservan
         prefs.edit()
             .remove("CODIGO_SALA")
             .remove("ROL")

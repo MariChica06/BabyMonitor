@@ -20,15 +20,15 @@ class MonitorActivity : AppCompatActivity() {
 
     private lateinit var tvEstado: TextView
     private lateinit var tvCodigo: TextView
-    private lateinit var btnIniciar: ImageButton      // ← corregido de Button a ImageButton
-    private lateinit var btnDetener: ImageButton      // ← corregido de Button a ImageButton
-    private lateinit var btnPause: ImageButton        // ← agregado
+    private lateinit var btnIniciar: ImageButton
+    private lateinit var btnDetener: ImageButton
+    private lateinit var btnPause: ImageButton
     private lateinit var tvNivelSonido: TextView
     private lateinit var waveformView: WaveformView
     private lateinit var recordingDot: View
     private var codigoSala: String = ""
     private var nivelActual = 0
-    private var pausado = false                       // ← para controlar estado de pausa
+    private var pausado = false
 
     private val sonidoReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -40,7 +40,7 @@ class MonitorActivity : AppCompatActivity() {
                 return
             }
 
-            if (pausado) return                       // ← si está pausado no actualiza
+            if (pausado) return
 
             nivelActual = when {
                 amplitud > nivelActual -> amplitud
@@ -77,18 +77,28 @@ class MonitorActivity : AppCompatActivity() {
         tvCodigo = findViewById(R.id.tvCodigo)
         btnIniciar = findViewById(R.id.btnIniciar)
         btnDetener = findViewById(R.id.btnDetener)
-        btnPause = findViewById(R.id.btnPause)        // ← agregado
+        btnPause = findViewById(R.id.btnPause)
         tvNivelSonido = findViewById(R.id.tvNivelSonido)
         waveformView = findViewById(R.id.waveformView)
         recordingDot = findViewById(R.id.recordingDot)
 
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
-        btnHome.setOnClickListener { finish() }
+        // Botón casa: vuelve al inicio SIN detener el servicio
+        btnHome.setOnClickListener {
+            finish()
+        }
 
         tvCodigo.text = "$codigoSala"
-        tvEstado.text = "Estado: Detenido 🔴"
-        btnDetener.isEnabled = false
-        btnPause.isEnabled = false                    // ← deshabilitado al inicio
+
+        // Restaurar estado visual si el servicio estaba activo
+        val prefs = getSharedPreferences("BabyMonitor", MODE_PRIVATE)
+        val monitoreoActivo = prefs.getBoolean("MONITOREANDO", false)
+
+        if (monitoreoActivo) {
+            setEstadoMonitoreando()
+        } else {
+            setEstadoDetenido()
+        }
 
         btnIniciar.setOnClickListener {
             if (verificarPermisoMicrofono()) {
@@ -96,7 +106,7 @@ class MonitorActivity : AppCompatActivity() {
             }
         }
 
-        btnPause.setOnClickListener {                 // ← lógica de pausa
+        btnPause.setOnClickListener {
             if (!pausado) {
                 pausado = true
                 tvEstado.text = "Estado: Pausado ⏸️"
@@ -143,11 +153,11 @@ class MonitorActivity : AppCompatActivity() {
     }
 
     private fun iniciarMonitoreo() {
-        pausado = false                               // ← resetear pausa
+        pausado = false
         tvEstado.text = "Estado: Calibrando... 🟡"
         btnIniciar.isEnabled = false
         btnDetener.isEnabled = true
-        btnPause.isEnabled = true                     // ← habilitar pausa
+        btnPause.isEnabled = true
         recordingDot.visibility = View.VISIBLE
         waveformView.startWave()
 
@@ -167,31 +177,53 @@ class MonitorActivity : AppCompatActivity() {
             val intent = Intent(this, MonitorService::class.java)
             intent.putExtra("CODIGO_SALA", codigoSala)
             ContextCompat.startForegroundService(this, intent)
+
+            // Persistir estado activo
+            getSharedPreferences("BabyMonitor", MODE_PRIVATE)
+                .edit().putBoolean("MONITOREANDO", true).apply()
+
             Toast.makeText(this, "✅ Monitoreo iniciado", Toast.LENGTH_SHORT).show()
-            tvEstado.text = "Estado: Monitoreando 🟢"
+            setEstadoMonitoreando()
         }.addOnFailureListener {
             Toast.makeText(this, "❌ Error al conectar con Firebase", Toast.LENGTH_SHORT).show()
             tvEstado.text = "Estado: Error de conexión ❌"
             btnIniciar.isEnabled = true
             btnDetener.isEnabled = false
-            btnPause.isEnabled = false                // ← deshabilitar pausa si falla
+            btnPause.isEnabled = false
             recordingDot.visibility = View.GONE
             waveformView.stopWave()
         }
     }
 
     private fun detenerMonitoreo() {
-        pausado = false                               // ← resetear pausa
-        tvEstado.text = "Estado: Detenido 🔴"
-        btnIniciar.isEnabled = true
-        btnDetener.isEnabled = false
-        btnPause.isEnabled = false                    // ← deshabilitar pausa
-        tvNivelSonido.text = "Nivel: 0"
-        recordingDot.visibility = View.GONE
-        waveformView.stopWave()
+        pausado = false
+
+        // Limpiar estado persistido
+        getSharedPreferences("BabyMonitor", MODE_PRIVATE)
+            .edit().putBoolean("MONITOREANDO", false).apply()
 
         stopService(Intent(this, MonitorService::class.java))
         Toast.makeText(this, "Monitoreo detenido", Toast.LENGTH_SHORT).show()
+        setEstadoDetenido()
+    }
+
+    private fun setEstadoMonitoreando() {
+        tvEstado.text = "Estado: Monitoreando 🟢"
+        btnIniciar.isEnabled = false
+        btnDetener.isEnabled = true
+        btnPause.isEnabled = true
+        recordingDot.visibility = View.VISIBLE
+        waveformView.startWave()
+    }
+
+    private fun setEstadoDetenido() {
+        tvEstado.text = "Estado: Detenido 🔴"
+        btnIniciar.isEnabled = true
+        btnDetener.isEnabled = false
+        btnPause.isEnabled = false
+        tvNivelSonido.text = "Nivel: 0"
+        recordingDot.visibility = View.GONE
+        waveformView.stopWave()
     }
 
     override fun onRequestPermissionsResult(
