@@ -119,7 +119,7 @@
                 android:id="@+id/btnDetener"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:background="@drawable/dot_recording"
+                android:background="@drawable/btn_circle_filled"
                 android:contentDescription="Detener"
                 android:src="@drawable/ic_stop"
                 app:tint="@color/btn_icon_tint_white" />
