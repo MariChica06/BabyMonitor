@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,7 @@ class ReceptorActivity : AppCompatActivity() {
     private lateinit var btnConectar: Button
     private lateinit var btnDesconectar: Button
     private lateinit var tvEstadoConexion: TextView
-    private lateinit var btnVerAlertas: Button
+    private lateinit var btnVerAlertas: ImageButton
     private lateinit var tvToken: TextView
     private lateinit var tvBadge: TextView
 
@@ -31,8 +32,8 @@ class ReceptorActivity : AppCompatActivity() {
         tvToken = findViewById(R.id.tvToken)
         tvBadge = findViewById(R.id.tvBadge)
 
-        val btnRetroceder = findViewById<android.widget.ImageButton>(R.id.btnRetroceder)
-        btnRetroceder.setOnClickListener { finish() }
+        val btnHome = findViewById<android.widget.ImageButton>(R.id.btnHome)
+        btnHome.setOnClickListener { finish() }
 
         val prefs = getSharedPreferences("BabyMonitor", MODE_PRIVATE)
         val codigoGuardado = prefs.getString("CODIGO_SALA", "") ?: ""

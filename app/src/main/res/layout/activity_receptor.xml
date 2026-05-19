@@ -3,112 +3,193 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="#F8F9FA">
+    android:background="#FFFFFF">
 
-    <ImageButton
-        android:id="@+id/btnRetroceder"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_revert"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_gravity="start"
-        android:contentDescription="Volver"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="👨‍👩‍👧 Modo Padre"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#2C3E50"
-        android:layout_marginBottom="32dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ingresa el código de sala:"
-        android:textSize="16sp"
-        android:textColor="#7F8C8D"
-        android:layout_marginBottom="8dp"/>
-
-    <EditText
-        android:id="@+id/etCodigo"
+    <!-- ===== ENCABEZADO ===== -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Código de 6 dígitos"
-        android:inputType="number"
-        android:maxLength="6"
-        android:textSize="24sp"
+        android:background="#89d8cd"
         android:gravity="center"
-        android:layout_marginBottom="24dp"/>
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
-    <Button
-        android:id="@+id/btnConectar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="🔗 Conectar"
-        android:textSize="18sp"
-        android:backgroundTint="#3498DB"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/btnDesconectar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#E74C3C"
-        android:text="🔌 Desconectar"
-        android:textSize="18sp"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tvEstadoConexion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Estado: Sin conectar"
-        android:textSize="16sp"
-        android:textColor="#7F8C8D"
-        android:layout_marginBottom="32dp"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <Button
-            android:id="@+id/btnVerAlertas"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="🔔 Ver Alertas"
-            android:textSize="18sp"
-            android:backgroundTint="#9B59B6"/>
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_person_receptor"
+            android:contentDescription="Icono usuario"
+            android:layout_marginEnd="10dp"/>
 
         <TextView
-            android:id="@+id/tvBadge"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|top"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/badge_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Eres Receptor"
+            android:textColor="#1a6b63"
+            android:textSize="21sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- ===== CONTENIDO CENTRAL ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <!-- Texto ingresa código -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/atkinson_hyperlegible"
             android:gravity="center"
-            android:text="0"
+            android:text="Ingresa el código\nde la sala:"
+            android:textAlignment="center"
+            android:textColor="#2C2C2C"
+            android:textSize="20sp" />
+
+        <!-- Campo de texto -->
+        <EditText
+            android:id="@+id/etCodigo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="000000"
+            android:inputType="textCapCharacters"
+            android:maxLength="6"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:letterSpacing="0.2"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Botón Conectar -->
+        <Button
+            android:id="@+id/btnConectar"
+            android:layout_width="200dp"
+            android:layout_height="52dp"
+            android:text="Conectar"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:textSize="16sp"
+            android:textColor="#1a6b63"
+            android:backgroundTint="#C8F5F1"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Botón Desconectar -->
+        <Button
+            android:id="@+id/btnDesconectar"
+            android:layout_width="200dp"
+            android:layout_height="52dp"
+            android:text="Desconectar"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:textSize="16sp"
             android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:backgroundTint="#89d8cd"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:layout_marginBottom="24dp"
             android:visibility="gone"/>
 
-    </FrameLayout>
+        <!-- Estado label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="Estado:"
+            android:textColor="#444444"
+            android:textSize="15sp"
+            android:layout_marginBottom="4dp"/>
 
-    <TextView
-        android:id="@+id/tvToken"
+        <!-- Estado valor -->
+        <TextView
+            android:id="@+id/tvEstadoConexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/atkinson_hyperlegible"
+            android:text="No conectado"
+            android:textColor="#89d8cd"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <!-- Token oculto -->
+        <TextView
+            android:id="@+id/tvToken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <!-- ===== FOOTER / MENÚ ===== -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Obteniendo token..."
-        android:textSize="10sp"
-        android:textColor="#BDC3C7"
-        android:layout_marginTop="24dp"
-        android:maxLines="3"/>
+        android:gravity="center"
+        android:paddingBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/footer_background_receptor"
+            android:gravity="center"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <!-- Home -->
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_home_receptor"
+                android:background="@android:color/transparent"
+                android:contentDescription="Inicio"
+                android:layout_marginEnd="16dp"/>
+
+            <!-- Separador -->
+            <View
+                android:layout_width="2dp"
+                android:layout_height="28dp"
+                android:background="#1a6b63"
+                android:layout_marginEnd="16dp"/>
+
+            <!-- Alertas con badge -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/btnVerAlertas"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_notifications"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Alertas"/>
+
+                <TextView
+                    android:id="@+id/tvBadge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/badge_background"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
