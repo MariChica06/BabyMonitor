@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -72,7 +73,7 @@
 
         </FrameLayout>
 
-        <!-- Botones de control -->
+        <!-- Nivel de sonido -->
         <TextView
             android:id="@+id/tvNivelSonido"
             android:layout_width="wrap_content"
@@ -83,6 +84,7 @@
             android:textColor="#444444"
             android:textSize="15sp" />
 
+        <!-- Botones de control -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +100,8 @@
                 android:src="@drawable/ic_play"
                 android:background="@drawable/btn_circle_outline"
                 android:contentDescription="Reproducir"
-                android:layout_marginEnd="12dp"/>
+                android:layout_marginEnd="12dp"
+                app:tint="@color/btn_icon_tint"/>
 
             <!-- Pausar -->
             <ImageButton
@@ -108,16 +111,19 @@
                 android:src="@drawable/ic_pause"
                 android:background="@drawable/btn_circle_outline"
                 android:contentDescription="Pausar"
-                android:layout_marginEnd="12dp"/>
+                android:layout_marginEnd="12dp"
+                app:tint="@color/btn_icon_tint"/>
 
             <!-- Detener -->
             <ImageButton
                 android:id="@+id/btnDetener"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:src="@drawable/ic_stop"
                 android:background="@drawable/btn_circle_filled"
-                android:contentDescription="Detener"/>
+                android:contentDescription="Detener"
+                android:src="@drawable/ic_stop"
+                app:tint="@color/btn_icon_tint_white" />
+
         </LinearLayout>
 
         <!-- Estado del monitoreo -->
@@ -130,8 +136,6 @@
             android:text="Estado: Detenido 🔴"
             android:textColor="#444444"
             android:textSize="15sp" />
-
-        <!-- Nivel de sonido -->
 
         <!-- Código de sala -->
         <TextView
